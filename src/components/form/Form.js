@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {perso} from '../data/perso';
 import {addHero} from '../../store/slices/user/userSlice';
+import './form.css'
 
 
 export const Form = () => {
@@ -42,17 +43,20 @@ export const Form = () => {
         <>
         <form onSubmit={hundleSubmit} className='form'>
 
-          <label htmlFor="">Choississez un perso </label>
+            <label htmlFor="">Choississez un perso </label>
+            <br/>
+            
+            <select defaultValue={hero.id} name='' id='' onChange={breed}>
+                {perso.map((e, i) =>{
+                    return <option key={i} value={e.id}>{e.breed}</option>
+                })}
+            </select>
+            <br/>
 
-          <select defaultValue={hero.id} name='' id='' onChange={breed}>
-            {perso.map((e, i) =>{
-                return <option key={i} value={e.id}>{e.breed}</option>
-            })}
-          </select>
+            <input type='text' value={pseudo} onChange={name}/>
+            <br/>
 
-          <input type='text' value={pseudo} onChange={name}/>
-
-          <input type='submit' value="Valider" />
+            <input type='submit' value="Valider" />
 
         </form>
       </>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Form} from './components/form/Form';
 import { Start } from "./pages/start";
+import './App.css';
 
 const App = () => {
 
