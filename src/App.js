@@ -1,23 +1,18 @@
-import {  useEffect, useState } from 'react';
-import { perso } from './components/data/perso';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Form} from './components/form/Form';
+import { Start } from "./pages/start";
 
 const App = () => {
-
-	const [hero, setHero] = useState(perso[2])
-
-	useEffect(() => {
-
-		if(hero.name !== undefined){
-			setHero({...hero, hero});
-		}
-
-	}, [hero]);
 
   	return (
       	<>
 			<h1>King of Naheulbeuk</h1>
-	  		<Form hero={hero} setHero={setHero} />
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<Form />}/>
+					<Route path='/start' element={<Start />}/>
+				</Routes>
+    		</BrowserRouter>
 	  	</>
   	);
 }
