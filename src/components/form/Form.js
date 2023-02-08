@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {perso} from '../data/perso';
@@ -13,18 +13,14 @@ export const Form = () => {
     const navigate = useNavigate();
 
     const [pseudo, setPseudo] = useState('');
-    const [hero, setHero] = useState(state.user.hero)
-    
-    useEffect(() => {
-        console.log(state);
-    }, [state]);
+    const [hero, setHero] = useState(state.user.hero);
 
     const hundleSubmit = (e) => {
       e.preventDefault();
 
       dispatch(addHero({...hero, name: pseudo}));
 
-      navigate('/start')
+      navigate('/start');
     }
 
     const breed = (e) => {
@@ -43,14 +39,17 @@ export const Form = () => {
         <>
         <form onSubmit={hundleSubmit} className='form'>
 
-            <label htmlFor="">Choississez un perso </label>
+            <label htmlFor="">Choississez un perso</label>
             <br/>
-            
+
             <select defaultValue={hero.id} name='' id='' onChange={breed}>
                 {perso.map((e, i) =>{
                     return <option key={i} value={e.id}>{e.breed}</option>
                 })}
             </select>
+            <br/>
+
+            <label htmlFor="">Entrez votre pseudo</label>
             <br/>
 
             <input type='text' value={pseudo} onChange={name}/>
