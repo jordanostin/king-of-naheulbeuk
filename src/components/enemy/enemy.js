@@ -14,15 +14,23 @@ export const Level = () => {
         console.log(champ);
     }, [champ])
 
-    const handleClick = (e) => {
-        console.log(e.target.value);
-
+    const handleSubmit = (e) => {
+        
+        e.preventDefault();
+        
+        
         const enemies = enemy.filter(e => e.id !== state.user.hero.id);
 
-        console.log(enemies)
         for(const enemie of enemies){
-            setChamp(enemie.breed)
-        }
+            
+            setChamp(champ.push(enemie.breed));
+        };
+        
+        console.log(champ)
+    };
+
+    const handleClick = (e) => {
+        console.log(e.target.value);
     };
 
     return(
@@ -31,9 +39,13 @@ export const Level = () => {
             <br/>
             
 
+            <form onSubmit={handleSubmit}>
             {difficulty.map((level, i) =>{
-                return <input type="button" key={i} onClick={handleClick} value={level} />
+                return <input type="submit" key={i} onClick={handleClick} value={level} />
             })}
+            </form>
+
+            <div>{champ}</div>
         </>
     );
 };
