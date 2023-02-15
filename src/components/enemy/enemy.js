@@ -1,5 +1,5 @@
 //import { useState } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {useSelector} from 'react-redux'
 import {difficulty} from '../data/difficulty';
 
@@ -8,12 +8,9 @@ export const Level = () => {
     const state = useSelector(state => state);
 
     const enemy = state.enemy.enemy;
-    const [champ, setChamp] = useState([])
-
-    useEffect(() => {
-        console.log(champ);
-    }, [champ])
-
+    const [champ, setChamp] = useState([]);
+    const [filteredEnemies, setFilteredEnemies] = useState([]);
+    
     const handleSubmit = (e) => {
         
         e.preventDefault();
@@ -26,11 +23,21 @@ export const Level = () => {
             setChamp(champ.push(enemie.breed));
         };
         
-        console.log(champ)
+        const randomEnemies = randomTab(enemies);
+        
+        setFilteredEnemies(randomEnemies);
+        
     };
-
+    
     const handleClick = (e) => {
+        
         console.log(e.target.value);
+        
+    }
+    
+    const randomTab = (array) => {
+        
+        return array.sort(() => Math.random() - 0.5);
     };
 
     return(
@@ -38,14 +45,20 @@ export const Level = () => {
             <label htmlFor="">Choississez votre niveau de difficulté</label>
             <br/>
             
-
             <form onSubmit={handleSubmit}>
             {difficulty.map((level, i) =>{
                 return <input type="submit" key={i} onClick={handleClick} value={level} />
             })}
             </form>
-
-            <div>{champ}</div>
+            
+            <h3>Voici l'ordre des ennemies que vous allez affronter</h3>
+            <div>
+            {filteredEnemies.map((enemy, index) => (
+                    <div key={index}>
+                        <p>{enemy.breed}</p>
+                    </div>
+                ))}
+            </div>
         </>
     );
 };
